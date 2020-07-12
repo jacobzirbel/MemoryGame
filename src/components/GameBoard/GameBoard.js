@@ -24,7 +24,7 @@ const GameBoard = ({ squares, scoreUp, gameOver }) => {
       p={1}
       m={1}
       bgcolor="background.paper"
-      css={{ maxWidth: 900, margin: "auto" }}
+      css={{ maxWidth: 900, maxHeight: 860, margin: "30px auto" }}
     >
       {squares
         .sort(() => Math.random() - 0.5)

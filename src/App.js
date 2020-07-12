@@ -7,7 +7,6 @@ import Footer from "./components/Footer/Footer";
 const getRandomColor = () => {
   const randomNumber = () => Math.floor(Math.random() * 200) + 16;
   let rgb = [randomNumber(), randomNumber(), randomNumber()];
-  console.log(rgb);
   return "#" + rgb.map((e) => e.toString(16)).join("");
 };
 
@@ -28,14 +27,23 @@ let squares = [...makeSquaresInfo(12)];
 
 function App() {
   const [score, setScore] = useState(0);
-  console.log("rendered");
+  const [message, setMessage] = useState("Click a color to start");
   return (
     <div className="App">
-      <Header score={score} />
+      <Header message={message} score={score} />
       <GameBoard
         squares={squares}
-        scoreUp={() => setScore(score + 1)}
+        scoreUp={() => {
+          console.log(score);
+          setScore(score + 1);
+          if (score === 11) {
+            setMessage("You win!!");
+          } else {
+            setMessage(11 - score + " to go!");
+          }
+        }}
         gameOver={() => {
+          setMessage("Wrong!");
           squares = [...makeSquaresInfo(12)];
           setScore(0);
         }}
