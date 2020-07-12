@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@material-ui/core/Box";
 import GameSquare from "../GameSquare/GameSquare";
 
-const GameBoard = ({ scoreUp, gameOver }) => {
+const GameBoard = ({ squares, scoreUp, gameOver }) => {
+  const [gameSquares, setGameSquares] = useState(squares);
+
+  const squareClicked = (name) => {
+    let clickedSquare = squares.find((square) => square.name === name);
+    if (clickedSquare.used) {
+      gameOver();
+    } else {
+      clickedSquare.used = true;
+      setGameSquares([...gameSquares]);
+      scoreUp();
+    }
+  };
   return (
     <Box
       display="flex"
@@ -13,8 +25,20 @@ const GameBoard = ({ scoreUp, gameOver }) => {
       bgcolor="background.paper"
       css={{ maxWidth: 900, margin: "auto" }}
     >
-      <GameSquare />
+      {gameSquares
+        .sort(() => Math.random() - 0.5)
+        .map((square) => {
+          return (
+            <GameSquare
+              key={square.id}
+              name={square.name}
+              used={square.used}
+              squareClicked={squareClicked}
+            />
+          );
+        })}
     </Box>
   );
 };
+
 export default GameBoard;
