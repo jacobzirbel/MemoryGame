@@ -34,7 +34,6 @@ function App() {
       <GameBoard
         squares={squares}
         scoreUp={() => {
-          console.log(score);
           setScore(score + 1);
           if (score === 11) {
             setMessage("You win!!");
@@ -44,8 +43,13 @@ function App() {
         }}
         gameOver={() => {
           setMessage("Wrong!");
-          squares = [...makeSquaresInfo(12)];
-          setScore(0);
+          squares = [];
+          setScore(-1);
+          setTimeout(() => {
+            squares = [...makeSquaresInfo(12)];
+            setScore(0);
+            setMessage("Try Again!");
+          }, 1500);
         }}
         score={score}
       />

@@ -3,16 +3,12 @@ import Box from "@material-ui/core/Box";
 import GameSquare from "../GameSquare/GameSquare";
 
 const GameBoard = ({ squares, scoreUp, gameOver }) => {
-  //const [gameSquares, setGameSquares] = useState(squares);
-
   const squareClicked = (name) => {
     let clickedSquare = squares.find((square) => square.name === name);
     if (clickedSquare.used) {
-      //  setGameSquares(gameSquares.map((e) => ({ ...e, used: false })));
       gameOver();
     } else {
       clickedSquare.used = true;
-      //  setGameSquares([...gameSquares]);
       scoreUp();
     }
   };
