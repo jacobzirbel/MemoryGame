@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@material-ui/core/Box";
 import GameSquare from "../GameSquare/GameSquare";
 
 const GameBoard = ({ squares, scoreUp, gameOver }) => {
-  const [gameSquares, setGameSquares] = useState(squares);
+  //const [gameSquares, setGameSquares] = useState(squares);
 
   const squareClicked = (name) => {
     let clickedSquare = squares.find((square) => square.name === name);
     if (clickedSquare.used) {
+      //  setGameSquares(gameSquares.map((e) => ({ ...e, used: false })));
       gameOver();
     } else {
       clickedSquare.used = true;
-      setGameSquares([...gameSquares]);
+      //  setGameSquares([...gameSquares]);
       scoreUp();
     }
   };
@@ -25,7 +26,7 @@ const GameBoard = ({ squares, scoreUp, gameOver }) => {
       bgcolor="background.paper"
       css={{ maxWidth: 900, margin: "auto" }}
     >
-      {gameSquares
+      {squares
         .sort(() => Math.random() - 0.5)
         .map((square) => {
           return (
@@ -33,6 +34,7 @@ const GameBoard = ({ squares, scoreUp, gameOver }) => {
               key={square.id}
               name={square.name}
               used={square.used}
+              color={square.color}
               squareClicked={squareClicked}
             />
           );

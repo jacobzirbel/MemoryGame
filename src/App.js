@@ -4,12 +4,19 @@ import GameBoard from "./components/GameBoard/GameBoard";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
+const getRandomColor = () => {
+  const randomNumber = () => Math.floor(Math.random() * 200) + 16;
+  let rgb = [randomNumber(), randomNumber(), randomNumber()];
+  console.log(rgb);
+  return "#" + rgb.map((e) => e.toString(16)).join("");
+};
+
 const makeSquaresInfo = (amount) => {
   let squares = [];
   while (amount-- > 0) {
     squares.push({
       id: amount,
-      color: "black",
+      color: getRandomColor(),
       used: false,
       name: amount,
     });
@@ -17,7 +24,7 @@ const makeSquaresInfo = (amount) => {
   return squares;
 };
 
-const squares = [...makeSquaresInfo(12)];
+let squares = [...makeSquaresInfo(12)];
 
 function App() {
   const [score, setScore] = useState(0);
@@ -28,7 +35,11 @@ function App() {
       <GameBoard
         squares={squares}
         scoreUp={() => setScore(score + 1)}
-        gameOver={() => setScore(0)}
+        gameOver={() => {
+          squares = [...makeSquaresInfo(12)];
+          setScore(0);
+        }}
+        score={score}
       />
       <Footer />
     </div>
