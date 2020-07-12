@@ -7,8 +7,11 @@ function App() {
   const [score, setScore] = useState(0);
   return (
     <div className="App">
-      <Header />
-      <GameBoard />
+      <Header score={score} />
+      <GameBoard
+        scoreUp={() => setScore(score + 1)}
+        gameOver={() => setScore(0)}
+      />
       <Footer />
     </div>
   );
