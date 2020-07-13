@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@material-ui/core/Box";
 import GameSquare from "../GameSquare/GameSquare";
 
-const GameBoard = ({ squares, scoreUp, gameOver }) => {
+const getRandomColor = () => {
+  // Min 16 so I don't have to worry about single digit hex numbers (1-f)
+  // Max 216 so colors don't get too light
+  const randomNumber = () => Math.floor(Math.random() * 200) + 16;
+  let rgb = [randomNumber(), randomNumber(), randomNumber()];
+  return "#" + rgb.map((e) => e.toString(16)).join("");
+};
+
+const makeSquaresInfo = (amount) => {
+  const squares = [];
+  while (amount--) {
+    squares.push({
+      id: amount,
+      color: getRandomColor(),
+      used: false,
+      name: amount,
+    });
+  }
+  return squares;
+};
+
+const GameBoard = ({ scoreUp, gameOver }) => {
+  const [squares, setSquares] = useState([...makeSquaresInfo(12)]);
+
   const squareClicked = (name) => {
-    let clickedSquare = squares.find((square) => square.name === name);
+    const clickedSquare = squares.find((square) => square.name === name);
     if (clickedSquare.used) {
+      setSquares([...makeSquaresInfo(12)]);
       gameOver();
     } else {
       clickedSquare.used = true;
