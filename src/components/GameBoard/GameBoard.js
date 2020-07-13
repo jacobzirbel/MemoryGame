@@ -12,13 +12,12 @@ const GameBoard = ({ squares, scoreUp, gameOver }) => {
       scoreUp();
     }
   };
+
   return (
     <Box
       display="flex"
       flexWrap="wrap"
       justifyContent="center"
-      p={1}
-      m={1}
       bgcolor="background.paper"
       css={{ maxWidth: 900, maxHeight: 860, margin: "30px auto" }}
     >

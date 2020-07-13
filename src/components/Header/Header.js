@@ -1,28 +1,32 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import App from "../../App";
+import Typography from "@material-ui/core/Typography";
 
 let highScore = 0;
+
 const Header = ({ score, message }) => {
   highScore = score > highScore ? score : highScore;
-  const pStyle = { width: "33%" };
+  const flexItemStyle = { width: "33%" };
+  const toolbarStyle = {
+    display: "flex",
+    flexFlow: "row no-wrap",
+    justifyContent: "space-between",
+    width: "100%",
+  };
+
   return (
     <div>
       <AppBar position="static">
-        <h4>Memory Game!</h4>
-        <Toolbar
-          style={{
-            display: "flex",
-            flexFlow: "row no-wrap",
-            justifyContent: "space-between",
-          }}
-        >
-          <p style={pStyle}>Don't click the same color twice!</p>
-          <p style={pStyle}>{message}</p>
-          <p style={pStyle}>
-            Score: {score} | High: {highScore}
-          </p>
+        <Typography variant="h4">Memory Game!</Typography>
+        <Toolbar>
+          <Typography variant="body2" style={toolbarStyle}>
+            <span style={flexItemStyle}>Don't click the same color twice!</span>
+            <span style={flexItemStyle}>{message}</span>
+            <span style={flexItemStyle}>
+              Score: {score} | High: {highScore}
+            </span>
+          </Typography>
         </Toolbar>
       </AppBar>
     </div>

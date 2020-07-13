@@ -22,40 +22,44 @@ const makeSquaresInfo = (amount) => {
   }
   return squares;
 };
-
+console.log("first square");
 let squares = [...makeSquaresInfo(12)];
 
-function App() {
+const App = () => {
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState("Click a color to start");
+
+  const scoreUp = () => {
+    setScore(score + 1);
+    if (score === 11) {
+      setMessage("You win!!");
+    } else {
+      setMessage(11 - score + " to go!");
+    }
+  };
+  const gameOver = () => {
+    setMessage("Wrong!");
+    squares = [];
+    setScore(0);
+    setTimeout(() => {
+      squares = [...makeSquaresInfo(12)];
+      setScore(0);
+      setMessage("Try Again!");
+    }, 1500);
+  };
+
   return (
     <div className="App">
       <Header message={message} score={score} />
       <GameBoard
         squares={squares}
-        scoreUp={() => {
-          setScore(score + 1);
-          if (score === 11) {
-            setMessage("You win!!");
-          } else {
-            setMessage(11 - score + " to go!");
-          }
-        }}
-        gameOver={() => {
-          setMessage("Wrong!");
-          squares = [];
-          setScore(-1);
-          setTimeout(() => {
-            squares = [...makeSquaresInfo(12)];
-            setScore(0);
-            setMessage("Try Again!");
-          }, 1500);
-        }}
+        scoreUp={scoreUp}
+        gameOver={gameOver}
         score={score}
       />
       <Footer />
     </div>
   );
-}
+};
 
 export default App;
